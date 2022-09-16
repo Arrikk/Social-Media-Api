@@ -1,0 +1,54 @@
+[01-Jun-2022 17:42:57 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('admin/user/19')
+#1 C:\PHP\leviPlatte\index.php(46): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Router.php' on line 167</p>
+[01-Jun-2022 18:16:10 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('images/logo.png')
+#1 C:\PHP\leviPlatte\index.php(46): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Router.php' on line 167</p>
+[01-Jun-2022 18:16:10 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('assets/css/dash...')
+#1 C:\PHP\leviPlatte\index.php(46): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Router.php' on line 167</p>
+[01-Jun-2022 18:16:10 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('images/logo-dar...')
+#1 C:\PHP\leviPlatte\index.php(46): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Router.php' on line 167</p>
+[01-Jun-2022 18:16:11 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('images/flags/en...')
+#1 C:\PHP\leviPlatte\index.php(46): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Router.php' on line 167</p>
+[01-Jun-2022 18:16:11 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('images/flags/en...')
+#1 C:\PHP\leviPlatte\index.php(46): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Router.php' on line 167</p>
+[01-Jun-2022 18:16:11 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('images/flags/sp...')
+#1 C:\PHP\leviPlatte\index.php(46): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Router.php' on line 167</p>
+[01-Jun-2022 18:16:11 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('images/flags/fr...')
+#1 C:\PHP\leviPlatte\index.php(46): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Router.php' on line 167</p>
+[01-Jun-2022 18:16:11 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('images/flags/tu...')
+#1 C:\PHP\leviPlatte\index.php(46): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Router.php' on line 167</p>
+[01-Jun-2022 18:16:50 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('assets/css/dash...')
+#1 C:\PHP\leviPlatte\index.php(46): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Router.php' on line 167</p>
+[01-Jun-2022 18:16:50 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('images/logo.png')
+#1 C:\PHP\leviPlatte\index.php(46): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Router.php' on line 167</p>
+[01-Jun-2022 18:16:50 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('images/logo-dar...')
+#1 C:\PHP\leviPlatte\index.php(46): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Router.php' on line 167</p>
+[01-Jun-2022 18:16:50 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('images/flags/en...')
+#1 C:\PHP\leviPlatte\index.php(46): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Router.php' on line 167</p>
+[01-Jun-2022 18:16:50 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('images/flags/en...')
+#1 C:\PHP\leviPlatte\index.php(46): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Router.php' on line 167</p>
+[01-Jun-2022 18:16:50 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('images/flags/sp...')
+#1 C:\PHP\leviPlatte\index.php(46): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Router.php' on line 167</p>
+[01-Jun-2022 18:16:50 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('images/flags/fr...')
+#1 C:\PHP\leviPlatte\index.php(46): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Router.php' on line 167</p>
+[01-Jun-2022 18:16:50 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('images/flags/tu...')
+#1 C:\PHP\leviPlatte\index.php(46): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Router.php' on line 167</p>
+[01-Jun-2022 20:36:49 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('Public/js/axios...')
+#1 C:\PHP\leviPlatte\index.php(46): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Router.php' on line 167</p>

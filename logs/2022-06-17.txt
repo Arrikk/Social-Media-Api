@@ -1,0 +1,16 @@
+[17-Jun-2022 18:09:31 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'PDOException'</p><p>Message: 'SQLSTATE[HY000]: General error: 1366 Incorrect integer value: '' for column 'is_admin' at row 1'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Core\Model.php(312): PDOStatement->execute()
+#1 C:\PHP\leviPlatte\Core\Traits\Model.php(181): Core\Model->exec()
+#2 C:\PHP\leviPlatte\App\Models\User.php(92): App\Models\User::dump(Array)
+#3 C:\PHP\leviPlatte\App\Controllers\User.php(25): App\Models\User->save()
+#4 C:\PHP\leviPlatte\Core\Router.php(154): App\Controllers\User->create(Object(Core\Request))
+#5 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('api/user/create')
+#6 C:\PHP\leviPlatte\index.php(48): Router\Route::Route()
+#7 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Model.php' on line 312</p>
+[17-Jun-2022 18:09:34 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'PDOException'</p><p>Message: 'SQLSTATE[HY000]: General error: 1366 Incorrect integer value: '' for column 'is_admin' at row 1'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Core\Model.php(312): PDOStatement->execute()
+#1 C:\PHP\leviPlatte\Core\Traits\Model.php(181): Core\Model->exec()
+#2 C:\PHP\leviPlatte\App\Models\User.php(92): App\Models\User::dump(Array)
+#3 C:\PHP\leviPlatte\App\Controllers\User.php(25): App\Models\User->save()
+#4 C:\PHP\leviPlatte\Core\Router.php(154): App\Controllers\User->create(Object(Core\Request))
+#5 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('api/user/create')
+#6 C:\PHP\leviPlatte\index.php(48): Router\Route::Route()
+#7 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Model.php' on line 312</p>

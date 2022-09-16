@@ -1,0 +1,109 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .camera {
+      height: 250px;
+      width: 250px;
+      background-color: rgb(238, 238, 238);
+    }
+    video {
+      height: 100%;
+      width: 100%;
+    }
+    image {
+      height: 100px;
+      width: 100px;
+    }
+  </style>
+  <body>
+    <div class="camera"></div>
+    <canvas width="320" height="240" autoplay id="takePhotoCanvas"></canvas>
+    <img src=".." class="image" alt="" />
+    <button class="start">Start</button>
+    <button class="capture">capture</button>
+  </body>
+</html>
+<script>
+  let camera = document.querySelector(".camera");
+  let start = document.querySelector(".start");
+  let capture = document.querySelector(".capture");
+  let image = document.querySelector(".image");
+  let canvas = document.querySelector("#takePhotoCanvas");
+
+  start.onclick = () => {
+    getMedia({
+      video: true,
+      audio: false,
+    });
+  };
+
+  capture.onclick = () => {
+    let photo = window.image
+      .takePhoto()
+      .then((blob) => createImageBitmap(blob))
+      .then((imageBitmap) => {
+        const canvas = document.querySelector("#takePhotoCanvas");
+        drawCanvas(canvas, imageBitmap);
+      });
+  };
+
+  let stream = null;
+
+  async function getMedia(constraints) {
+    window.stream = await navigator.mediaDevices.getUserMedia(constraints);
+    const track = window.stream.getVideoTracks()[0];
+    window.image = new ImageCapture(track);
+    let video = document.createElement("video");
+    camera.append(video);
+    video.srcObject = window.stream;
+    video.onloadeddata = (e) => {
+      video.play();
+    };
+  }
+
+  function drawCanvas(canvas, img) {
+    canvas.width = getComputedStyle(canvas).width.split("px")[0];
+    canvas.height = getComputedStyle(canvas).height.split("px")[0];
+    let ratio = Math.min(canvas.width / img.width, canvas.height / img.height);
+    let x = (canvas.width - img.width * ratio) / 2;
+    let y = (canvas.height - img.height * ratio) / 2;
+    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+    canvas
+      .getContext("2d")
+      .drawImage(
+        img,
+        0,
+        0,
+        img.width,
+        img.height,
+        x,
+        y,
+        img.width * ratio,
+        img.height * ratio
+      );
+    let image_data_url = canvas.toDataURL("image/jpeg");
+  }
+
+
+</script> -->
+<pre>
+  ---
+  title: Bareminds API
+  slug: Web/API/BAREMINDS_API
+  page-type: web-api-overview
+  tags:
+    - API
+    - BAREMINDS API
+    - Reference
+    - Landing
+    - Experimental
+    - Active
+    - Standard
+  ---
+</pre>

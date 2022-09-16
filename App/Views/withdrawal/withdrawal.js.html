@@ -1,0 +1,294 @@
+<script>
+  levi.desc = "item";
+  function getWithdrawals() {
+    setLoading(true);
+    axios
+      .get(
+        `/api/withdrawals?limit=${levi.defaults.limit}&order=${levi.defaults.order}`,
+        { headers: levi.defaults.headers }
+      )
+      .then((res) => {
+        levi.defaults.items = res.data;
+        setLoading();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function setLoading(prop = false, container = innerContainer) {
+    levi.defaults.loading = prop;
+    levi.defaults.loading
+      ? container.html(`<span style="display:flex;width:150px;padding:10px;align-items:center"><div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div> Loading</span>`)
+      : container.html("");
+    $(".nk-tb-item:not(.nk-tb-head)").remove();
+    levi.defaults.items.length <= 0
+      ? container.html(`
+    <div class="nk-tb-item" style="padding: 15px;
+    display: flex;
+    width: 150px;"> No item Found </div>
+    `)
+      : levi.defaults.items.forEach(withdrawalItem);
+  }
+  // setLoading(true);
+
+  function getTotalWithdrawals() {
+    axios
+      .get("/api/withdrawals/count", { headers: levi.defaults.headers })
+      .then((res) => {
+        levi.defaults.totalItems = res.data.total;
+        $("#total-items-count").text(
+          `${levi.defaults.totalItems} ${
+            levi.defaults.totalItems > 1 ? "items" : "item"
+          }`
+        );
+      });
+  }
+
+  function init() {
+    getTotalWithdrawals();
+    let list = Math.abs(levi.defaults.totalItems / levi.defaults.limit).toFixed(
+      0
+    );
+    setPageList(list);
+    $("#total-page").text(`of ${list}`);
+    getWithdrawals();
+  }
+
+  function withdrawalItem(item) {
+    let colors = [
+      "bg-primary",
+      "bg-danger",
+      "bg-warning",
+      "bg-success",
+      "bg-purple",
+      "bg-info",
+    ];
+    let image = item.avatar ? item.avatar : item.name.charAt(0).toUpperCase();
+
+    let status = {};
+
+    switch (item.status) {
+      case "approved":
+        status.icon = "icon text-success ni ni-check-circle";
+        status.text = "Approved";
+        break;
+      case "pending":
+        status.icon = "icon text-warning ni ni-alert-circle";
+        status.text = "Pending";
+        break;
+      case "declined":
+        status.icon = "icon text-warning ni ni-cross-circle";
+        status.text = "Declined";
+        break;
+      default:
+        status.icon = "icon ni ni-alert-circle";
+        status.text = "Attention";
+        break;
+    }
+
+    container.append(`
+      <div class="nk-tb-item">
+          <div class="nk-tb-col nk-tb-col-check">
+              <div class="custom-control custom-control-sm custom-checkbox notext">
+                  <input type="checkbox" class="custom-control-input" id="uid${
+                    item.id
+                  }">
+                  <label class="custom-control-label" for="uid${
+                    item.id
+                  }"></label>
+              </div>
+          </div>
+          <div class="nk-tb-col">
+              <a href="/admin/withdrawal/${item.id}">
+                <div class="user-card">
+                    <div class="user-avatar ${
+                      !item.avatar &&
+                      colors[Math.floor(Math.random() * colors.length)]
+                    }">
+                      ${
+                        !item.avatar
+                          ? `<span>${image}</span>`
+                          : `<img src="${item.avatar}" alt="">`
+                      }
+                    </div>
+                    <div class="user-info">
+                        <span class="tb-lead">${
+                          item.name
+                        }<span class="dot dot-success d-md-none ms-1"></span></span>
+                        <span>${item.email}</span>
+                    </div>
+                </div>
+              </a>
+          </div>
+          <div class="nk-tb-col tb-col-mb">
+              <span class="tb-amount">${levi.sign}${levi.money(
+      item.amount
+    )}<span class="currency">${levi.currency}</span></span>
+          </div>
+          <div class="nk-tb-col tb-col-md">
+              <span>${levi.dateF(item.createdAt)}</span>
+          </div>
+          <div class="nk-tb-col tb-col-xl">
+              <span>${levi.dateF(item.updatedAt)}</span>
+          </div>
+          <div class="nk-tb-col tb-col-md">
+            <ul class="list-status">
+              <li><em class="${status.icon}"></em> <span>${
+      status.text
+    }</span></li>
+              </ul>
+          </div>
+          <div class="nk-tb-col nk-tb-col-tools">
+              <ul class="nk-tb-actions gx-1">
+                  <li class="nk-tb-action-hidden">
+                      <a href="#" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Wallet">
+                          <em class="icon ni ni-wallet-fill"></em>
+                      </a>
+                  </li>
+                  <li class="nk-tb-action-hidden">
+                      <a href="#" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Send Email">
+                          <em class="icon ni ni-mail-fill"></em>
+                      </a>
+                  </li>
+                  <li>
+                          <a href="/admin/withdrawal/${
+                            item.id
+                          }" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-eye"></em></a>
+                     
+                  </li>
+              </ul>
+          </div>
+      </div>
+    `);
+  }
+
+  function withdrawalDetails() {
+    let pathName = location.pathname;
+    pathName = pathName.split("/");
+    pathName = pathName[3] ? pathName[3] : false;
+
+    if (pathName) {
+      axios
+        .get(`/api/withdrawals/${pathName}`, { headers: levi.defaults.headers })
+        .then((res) => {
+          withdrawalDetailsItem(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
+
+  function withdrawalDetailsItem(item) {
+    let decsBlock = $(".nk-block-des");
+    let colors = [
+      "bg-primary",
+      "bg-danger",
+      "bg-warning",
+      "bg-success",
+      "bg-purple",
+      "bg-info",
+    ];
+
+    decsBlock.html(`
+    <span class="badge bg-${item.isPending ? "warning" : ""}${
+      item.isApproved ? "success" : ""
+    }${item.isDeclined ? "danger" : ""} ms-0">
+        ${
+          item.isDeclined
+            ? '<em class="icon ni ni-cross-circle"></em> &nbsp; Declined'
+            : ""
+        }
+        ${
+          item.isApproved
+            ? '<em class="icon ni ni-check-circle"></em> &nbsp;Approved'
+            : ""
+        }
+        ${item.isPending ? '<em class="icon ni ni-na"></em> &nbsp;Pending' : ""}
+    </span>
+    `);
+
+    $("#bankName").text(item.bank ? item.bank : "Not yet added");
+    $("#accountName").text(
+      item.bankaccname ? item.bankaccname : "Not yet added"
+    );
+    $("#accountNumber").text(item.nuban ? item.nuban : "Not yet added");
+    $("#phoneNumber").text(item.phone ? item.phone : "Not yet added");
+
+    $("#fullName").text(item.fullname ? item.fullname : "Not yet added");
+    $("#email").text(item.email ? item.email : "Not yet added");
+
+    let avatar = $("#avatar");
+    item.avatar
+      ? avatar.html(`<img src="${item.avatar}" />`)
+      : avatar.html(`<span>${item.fullname.charAt(0).toUpperCase()}</span>`);
+
+    $("#requestAmount").html(
+      `${levi.money(item.amount)} <span class="currency currency-btc"> ${
+        levi.currency
+      } </span>`
+    );
+    $("#totalWithdrawal").html(
+      `${levi.money(item.totalAmount)} <span class="currency currency-btc"> ${
+        levi.currency
+      } </span>`
+    );
+
+    $("#accountBalance").html(
+      `${levi.money(item.balance)} <span class="currency currency-btc"> ${
+        levi.currency
+      } </span>`
+    );
+
+    !item.avatar &&
+      avatar.addClass(colors[Math.floor(Math.random() * colors.length)]);
+
+    $("#action-btn").html(`
+    <ul class="nk-block-tools g-3" >
+      ${
+        item.canAccept
+          ? `<li onClick="withdrawalAction(${item.id}, '${item.approve}')"><a href="javascript:;" class="btn btn-white btn-dim btn-outline-success"><em class="icon ni ni-check-circle" data-id="${item.id}" data-action="${item.approve}"></em><span>Accept</span></a></li>`
+          : ""
+      }
+        
+      ${
+        item.canDecline
+          ? `<li onClick="withdrawalAction(${item.id}, '${item.decline}')"><a href="javascript:;" class="btn btn-white btn-dim btn-outline-danger"><em class="icon ni ni-cross-circle" data-id="${item.id}" data-action="${item.decline}" id="decline"></em><span>Decline</span></a></li>`
+          : ""
+      }
+    </ul>
+    `);
+  }
+
+  function withdrawalAction(id, type) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: `Yes, ${type.slice(0, -1)} it!`,
+    }).then(function (result) {
+      if (result.value) {
+        axios
+          .get(`/api/withdrawals/action?id=${id}&action=${type}`, {
+            headers: levi.defaults.headers,
+          })
+          .then((res) => {
+            withdrawalDetails();
+            Swal.fire(type, res.data.message, "success");
+          })
+          .catch((err) => {
+            // toastr.clear();
+            Swal.fire("Error", err.response.data.error, "error");
+          });
+      }
+    });
+  }
+
+  withdrawalDetails();
+
+  init();
+</script>

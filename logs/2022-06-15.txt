@@ -1,0 +1,9 @@
+[15-Jun-2022 11:19:40 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('favicon.ico')
+#1 C:\PHP\leviPlatte\index.php(48): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Router.php' on line 167</p>
+[15-Jun-2022 11:19:56 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Controller class App\Controllers\Others\User dosent exist'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('api/user/regist...')
+#1 C:\PHP\leviPlatte\index.php(48): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Router.php' on line 164</p>
+[15-Jun-2022 11:20:06 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\PHP\leviPlatte\Router\Route.php(21): Core\Router->dispatch('api')
+#1 C:\PHP\leviPlatte\index.php(48): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\PHP\leviPlatte\Core\Router.php' on line 167</p>

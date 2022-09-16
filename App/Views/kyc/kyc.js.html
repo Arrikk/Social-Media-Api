@@ -1,0 +1,355 @@
+<script>
+  levi.desc = "item";
+  function getKyc() {
+    setLoading(true);
+    axios
+      .get(
+        `/api/kyc?limit=${levi.defaults.limit}&order=${levi.defaults.order}`,
+        { headers: levi.defaults.headers }
+      )
+      .then((res) => {
+        levi.defaults.items = res.data;
+        setLoading();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function setLoading(prop = false, container = innerContainer) {
+    levi.defaults.loading = prop;
+    levi.defaults.loading
+      ? container.html(`<span style="display:flex;width:150px;padding:10px;align-items:center"><div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div> Loading</span>`)
+      : container.html("");
+    $(".nk-tb-item:not(.nk-tb-head)").remove();
+    levi.defaults.items.length <= 0
+      ? container.html(`
+      <div class="nk-tb-item" style="padding: 15px;
+      display: flex;
+      width: 150px;"> No item Found </div>
+      `)
+      : levi.defaults.items.forEach(kycItem);
+  }
+  // setLoading(true);
+
+  function getTotalKyc() {
+    axios
+      .get("/api/kyc/count", { headers: levi.defaults.headers })
+      .then((res) => {
+        levi.defaults.totalItems = res.data.total;
+        $("#total-items-count").text(
+          `${levi.defaults.totalItems} ${
+            levi.defaults.totalItems > 1 ? "items" : "item"
+          }`
+        );
+      });
+  }
+
+  function init() {
+    getTotalKyc();
+    let list = Math.abs(levi.defaults.totalItems / levi.defaults.limit).toFixed(
+      0
+    );
+    setPageList(list);
+    $("#total-page").text(`of ${list}`);
+    getKyc();
+  }
+
+  function kycItem(item) {
+    let colors = [
+      "bg-primary",
+      "bg-danger",
+      "bg-warning",
+      "bg-success",
+      "bg-purple",
+      "bg-info",
+    ];
+    let image = item.avatar
+      ? item.avatar
+      : item.fullname.charAt(0).toUpperCase();
+
+    let status = {};
+
+    switch (item.status) {
+      case "approved":
+        status.icon = "icon text-success ni ni-check-circle";
+        status.text = "Approved";
+        break;
+      case "pending":
+        status.icon = "icon text-warning ni ni-alert-circle";
+        status.text = "Pending";
+        break;
+      case "declined":
+        status.icon = "icon text-warning ni ni-cross-circle";
+        status.text = "Declined";
+        break;
+      default:
+        status.icon = "icon ni ni-alert-circle";
+        status.text = "Attention";
+        break;
+    }
+
+    container.append(`
+    <div class="nk-tb-item">
+        <div class="nk-tb-col nk-tb-col-check">
+            <div class="custom-control custom-control-sm custom-checkbox notext">
+                <input type="checkbox" class="custom-control-input" id="uid${
+                  item.id
+                }">
+                <label class="custom-control-label" for="uid${item.id}"></label>
+            </div>
+        </div>
+        <div class="nk-tb-col">
+            <div class="user-card">
+                <div class="user-avatar ${
+                  !item.avatar
+                    ? colors[Math.floor(Math.random() * colors.length)]
+                    : ""
+                }">
+                    ${
+                      !item.avatar
+                        ? `<span>${item.fullname
+                            .charAt(0)
+                            .toUpperCase()}</span>`
+                        : `<img src="${item.avatar}" />`
+                    }
+                </div>
+                <div class="user-info">
+                    <span class="tb-lead">${
+                      item.fullname
+                    }<span class="dot dot-success d-md-none ms-1"></span></span>
+                    <span>${item.username}</span>
+                </div>
+            </div>
+        </div>
+        <div class="nk-tb-col tb-col-mb">
+            <span class="tb-lead-sub">${item.type}</span>
+        </div>
+        <div class="nk-tb-col tb-col-md">
+            <ul class="list-inline list-download">
+                <li>Front Side <a href="javascript:;" class="popup"><em class="icon ni ni-download"></em></a></li>
+                <li>Back Side <a href="javascript:;" class="popup"><em class="icon ni ni-download"></em></a></li>
+            </ul>
+        </div>
+        <div class="nk-tb-col tb-col-lg">
+            <span class="tb-date">${levi.dateF(item.createdAt)}</span>
+        </div>
+        <div class="nk-tb-col tb-col-md">
+            <span class="tb-status text-${item.isApproved ? "success" : ""} ${
+      item.isPending ? "warning" : ""
+    } ${item.isDeclined ? "danger" : ""}">${item.status}</span>
+            <span data-bs-toggle="tooltip" title="${
+              item.status
+            } at ${levi.dateF(
+      item.updatedAt
+    )}" data-bs-placement="top"><em class="icon ni ni-info"></em></span>
+        </div>
+        <div class="nk-tb-col tb-col-lg">
+            <div class="user-card">
+                <div class="user-avatar user-avatar-xs bg-orange-dim">
+                    <span>${
+                      item.viewedBy
+                        ? item.viewedBy.charAt(0).toUpperCase()
+                        : "Nil"
+                    }</span>
+                </div>
+                <div class="user-name">
+                    <span class="tb-lead">${
+                      item.viewedBy ? item.viewedBy : "Not Yet Viewed"
+                    }</span>
+                </div>
+            </div>
+        </div>
+        <div class="nk-tb-col nk-tb-col-tools">
+            <ul class="nk-tb-actions gx-1">
+                <li class="nk-tb-action-hidden">
+                    <a href="/admin/kyc/${item.id}" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Quick View">
+                        <em class="icon ni ni-eye-fill"></em>
+                    </a>
+                </li>
+                <li>
+                    <div class="drodown">
+                        <a href="javascript:;" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <ul class="link-list-opt no-bdr">
+                                <li><a href="/admin/kyc/${
+                                  item.id
+                                }"><em class="icon ni ni-eye"></em><span>View Details</span></a></li>
+                                <li><a href="/admin/user/${
+                                  item.user_id
+                                }"><em class="icon ni ni-user"></em><span>View Profile</span></a></li>
+                                <li class="divider"></li>
+                                ${
+                                  item.isApproved
+                                    ? `<li><a href="javascript:;"><em class="icon ni ni-check-round"></em><span>${item.status}</span></a></li>`
+                                    : ""
+                                }
+                                ${
+                                  item.isDeclined
+                                    ? `<li><a href="javascript:;"><em class="icon ni ni-na"></em><span>${item.status}</span></a></li>`
+                                    : ""
+                                }
+                                <li><a href="javascript:;"><em class="icon ni ni-trash"></em><span>Delete</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    `);
+  }
+
+  function kycDetails() {
+    let pathName = location.pathname;
+    pathName = pathName.split("/");
+    pathName = pathName[3] ? pathName[3] : false;
+
+    if (pathName) {
+      axios
+        .get(`/api/kyc/${pathName}`, { headers: levi.defaults.headers })
+        .then((res) => {
+          kycDetailsItem(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
+
+  function kycDetailsItem(item) {
+    console.log(item)
+    let colors = [
+      "bg-primary",
+      "bg-danger",
+      "bg-warning",
+      "bg-success",
+      "bg-purple",
+      "bg-info",
+    ];
+
+    $("#activeStatus").html(`
+          ${
+            item.isDeclined
+              ? '<span class="badge badge-dim badge-sm bg-outline-danger">Declined</span>'
+              : ""
+          }
+          ${
+            item.isApproved
+              ? '<span class="badge badge-dim badge-sm bg-outline-success">Approved</span>'
+              : ""
+          }
+          ${
+            item.isPending
+              ? '<span class="badge badge-dim badge-sm bg-outline-warning">Awaiting Review</span>'
+              : ""
+          }
+      `);
+
+    $("#submittedAt").text(levi.dateF(item.createdAt));
+    $("#submittedBy").text(item.username);
+    $("#accountNumber").text(item.nuban ? item.nuban : "Not yet added");
+    $("#phoneNumber").text(item.phone ? item.phone : "Not yet added");
+
+    $("#fullName").text(item.fullname ? item.fullname : "Not yet added");
+    $("#email").text(item.email ? item.email : "Not yet added");
+
+    $("#checkedBy").html(`
+        <div class="user-avatar user-avatar-xs ${
+          !item.viwewedByAvatar ? "bg-orange-dim" : ""
+        }">
+            ${
+              item.viwewedByAvatar
+                ? `<img src="${item.avatar}" />`
+                : `<span>${item.viewedBy.charAt(0).toUpperCase()}</span>`
+            }
+        </div>
+        <div class="user-name">
+            <span class="tb-lead">${item.viewedBy}</span>
+        </div>
+    `);
+
+    $("#checkedAt").text(levi.dateF(item.updatedAt));
+
+    // Documents
+    $(".documentType").text(item.type);
+    $("#frontSide").html(`<em data-url="${item.front}" class="open-img icon ni ni-eye" id="decline"></em>`);
+    $("#backSide").html(`<em data-url="${item.back}" class="open-img icon ni ni-eye" id="decline"></em>`);
+    $("#selfie").html(`<em data-url="${item.selfir}" class="open-img icon ni ni-eye" id="decline"></em>`);
+
+    //Profile
+    $("#fullname").text(item.fullname);
+    $("#firstName").text(item.firstName);
+    $("#lastName").text(item.lastName);
+    $("#emailAddress").text(item.email);
+    $("#phoneNumber").text(item.phone);
+    $("#country").text(item.country);
+    $("#fullAddress").text(item.address);
+    $("#currentLocation").text(item.location);
+    $("#DOB").text(item.DOB);
+    $("#amazonUrl").html(
+      `<span>View</span> <a href="${item.amazonUrl}" target="_blank"><em class="icon ni ni-telegram"></em></a>`
+    );
+
+    // !item.avatar &&
+    //   avatar.addClass(colors[Math.floor(Math.random() * colors.length)]);
+
+    $("#documentContainer").after(`
+      <ul class="nk-block-tools g-3 mt-2" >
+        ${
+          item.canApprove
+            ? `<li onClick="kycAction(${item.id}, '${item.approve}')"><a href="javascript:;" class="btn btn-dim btn-success"><em class="icon ni ni-check-circle" data-id="${item.id}" data-action="${item.approve}"></em><span>Accept</span></a></li>`
+            : ""
+        }
+          
+        ${
+          item.canDecline
+            ? `<li onClick="kycAction(${item.id}, '${item.decline}')"><a href="javascript:;" class="btn btn-dim btn-danger"><em class="icon ni ni-cross-circle" data-id="${item.id}" data-action="${item.decline}" id="decline"></em><span>Decline</span></a></li>`
+            : ""
+        }
+      </ul>
+      `);
+  }
+
+  function kycAction(id, type) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: `Yes, ${type.slice(0, -1)} it!`,
+    }).then(function (result) {
+      if (result.value) {
+        axios
+          .get(`/api/kyc/action?id=${id}&action=${type}`, {
+            headers: levi.defaults.headers,
+          })
+          .then((res) => {
+            kycDetails();
+            Swal.fire(type, res.data.message, "success");
+        })
+        .catch((err) => {
+            // toastr.clear();
+            Swal.fire("Error", err.response.data.error, "error");
+            // NioApp.Toast(err.response.data.error, "error");
+          });
+      }
+    });
+  }
+
+  kycDetails();
+
+  init();
+
+  $('.mfp-close').click(function(){
+    $('.image-modal').fadeOut()
+  })
+
+  $(document).on('click', '.open-img', function(){
+    let imgContainer = $('.image-modal')
+    imgContainer.find('img').attr('src', $(this).data('url'))
+    imgContainer.fadeIn()
+  })
+</script>

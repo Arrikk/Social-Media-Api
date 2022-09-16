@@ -1,0 +1,408 @@
+=========== Create user ================
+/api/user/create
+Method: POST
+datas = {
+    email, password, name
+}
+
+================ Login ================
+/api/user/login
+Method: POST
+datas = {
+    email, password
+}
+Response = {token : 'token'}
+
+============== Update User =============
+/api/user/update/{userId}
+Method: POST
+headers: {
+    'Authorization': 'Bearer token' 
+}
+data : {
+    "website_url": "",
+    "display_name": "",
+    "bio": "",
+    "username": "" (make reference to /api/user/check to validate username b4 sending),
+    "location": "",
+    "phone_number": "",
+    "avatar": "",
+    "amazon_url": ""
+} (NOTE: those are parameters that can be updated, not necessarily all at a time....)
+
+============== Delete User =============
+/api/user/delete/{userId}
+headers: {
+    'Authorization': 'Bearer token' 
+}
+
+================= Forgot Password =====================
+/api/password/forgot
+method: POST
+data = {email}
+
+================= Validate Reset Token =====================
+/api/password/token/{token}
+method: GET
+
+================= Reset Password =====================
+/api/password/reset
+method: POST
+data = {
+    "password": "password",
+    "token": "token"
+}
+================= Change Password =====================
+/api/password/change
+method: POST
+data = {
+    "oldPassword": "password",
+    "newPassword": "password",
+}
+============== Cheek email or username exists =============
+/api/user/check
+Method: POST
+data = {check: email || username}
+response = {'exists': boolean}
+
+============== Get Current User =============
+/api/my/profile
+Method: GET
+headers: {
+    'Authorization': 'Bearer token' 
+}
+response = {object}
+
+============== Get User Profile ========
+api/profile/{username}
+Method: GET
+headers: {
+    'Authorization': 'Bearer token' 
+}
+response = {object}
+============== Subscribe to a User Profile ========
+api/subscribe/{id}
+Method: GET
+headers: {
+    'Authorization': 'Bearer token' 
+}
+data: 
+response = {object}
+============== Unsubscribe Subscription ========
+api/unsubscription/{id}
+Method: GET
+headers: {
+    'Authorization': 'Bearer token' 
+}
+response = {object}
+============== Update user Subscription ========
+api/subscription/set
+Method: POST
+headers: {
+    'Authorization': 'Bearer token' 
+}
+data: {amount}
+response = {object}
+
+============== Get user Notifications ========
+/api/my/notifications
+Method: GET
+headers: {
+    'Authorization': 'Bearer token' 
+}
+response = {array}
+============== My Referrals ========
+/api/my/referrals
+Method: GET
+headers: {
+    'Authorization': 'Bearer token' 
+}
+response = {array}
+============== My Transactions ========
+/api/my/earnings
+Method: GET
+headers: {
+    'Authorization': 'Bearer token' 
+}
+response = {array}
+============== My Subscriptions ========
+/api/my/subscriptions
+Method: GET
+headers: {
+    'Authorization': 'Bearer token' 
+}
+response = {array}
+
+============== My Feeds ========
+/api/my/feeds?agent=userId
+Method: GET
+headers: {
+    'Authorization': 'Bearer token' 
+}
+response = {array}
+============== My Wallet ========
+/api/my/wallet
+Method: GET
+headers: {
+    'Authorization': 'Bearer token' 
+}
+response = {object}
+
+
+
+******************** SETTINGS ********************
+===============  Display Settings ================
+/api/settings/display
+Method: POST
+headers: {
+    'Authorization': 'Bearer token' 
+}
+data = {id: userID}
+response = {'display': 'dark' || 'light'}
+
+===============  Privacy Settings ================
+/api/settings/privacy
+Method: POST
+headers: {
+    'Authorization': 'Bearer token' 
+}
+data = {id:userID, name: 'show_subscription' || 'show_activity}
+response = {'privacy' : boolean}
+
+******************** BOOKMARK ********************
+============ check and uncheck==============
+/api/bookmark/{feedId}
+Method: GET
+headers: {
+    'Authorization': 'Bearer token' 
+}
+response = {'status': boolean, 'message': 'Bookmarked' || 'Removed'}
+
+============ User Bookmarks ================
+api/bookmarks
+Method: GET
+headers: {
+    'Authorization': 'Bearer token' 
+}
+response =  {array}
+
+*************************************
+============= Follow and unfollow =================
+api/follow/{idToFollow}
+Method: POST
+headers: {
+    'Authorization': 'Bearer token' 
+}
+data: {id: userID}
+response = {status: boolean, message: Followed || unFollowed}
+
+****************************************************
+==================== Create Feed ====================
+/api/feed/create
+Method: POST
+headers: {
+    'Authorization': 'Bearer token' 
+}
+data {
+    "id": 18, (> required)
+    "text": "Tomorrow is sunday", (> required)
+    "image": ["img1", "img2"],
+    "video": "",
+    "is_premium": 490,
+    "poll": ["Yes it is", "no it's not", "Probably Might"],
+    "has_poll": true,
+    "endDate": "2022-05-15 16:44:46"
+}
+
+==================== Get Feed =======================
+/api/feed/
+Method: GET
+headers: {
+    'Authorization': 'Bearer token' 
+}
+response: {array}
+
+=================== Subscribe to feed ===============
+/api/feed/subscribe
+Method: POST
+headers: {
+    'Authorization': 'Bearer token' 
+}
+data = {user: userId, feed: feedId}
+response: {object}
+
+================= Answer Poll =====================
+/api/poll/answer
+Method: POST
+headers: {
+    'Authorization': 'Bearer token' 
+}
+data = {feed: feedId, option: pollOptionID}
+response: {object}
+
+================= Like / Unlike Feed =====================
+/api/like/{feedId}
+Method: GET
+headers: {
+    Authorization: 'Bearer token'
+}
+response: {status: boolean, message: liked || unliked}
+
+============== Comment on feed =======================
+/api/feed/{id}/comment
+Method: POST
+data: {comment}
+headers: {
+    Authorization: 'Bearer token'
+}
+response: {object}
+
+============== Feed Comment =======================
+/api/feed/{id}/comments
+method: GET
+headers: {
+    Authorization: 'Bearer token'
+}
+response: {array}
+
+================== Delete Comment ====================
+/api/comment/{id}/delete
+method: GET
+headers: {
+    Authorization: 'Bearer token'
+}
+response: {boolean}
+
+============== Like Comment ============
+/api/comment/{id}/lunlike
+method: GET
+headers:{
+    Authorization: 'Bearer Token'
+}
+response: {message: 'liked' || 'unliked'}
+
+============== Tip Feed ============
+/api/feed/tip
+method: POST
+headers:{
+    Authorization: 'Bearer Token'
+}
+data: {
+     "feed": feedId,
+    "amount": amount
+}
+response: {obj}
+
+****************************************************
+================= List Control =====================
+********************************************************
+
+============== Create New List ======================
+/api/list/new
+Method: POST
+headers: {
+    Authorization: 'Bearer token'
+}
+data: {id: userId, name: ListName}
+response: {Object}
+
+==================== Get Lists ================== 
+/api/lists
+Method: GET
+headers: {
+    Authorization: 'Bearer token'
+}
+response: {Array}
+
+==================== Get Lists Details ================== 
+/api/lists/{slug}
+Method: GET
+headers: {
+    Authorization: 'Bearer token'
+}
+response: {Array}
+
+================= Update List =====================
+/api/list/12/update
+method: POST
+headers: {
+    Authorization: 'Bearer token'
+}
+data: {user: userId, name: currentUserId}
+response: {object}
+
+================= Add a user to a list =====================
+/api/list/{listId}/acton
+Method: POST
+headers: {
+    Authorization: 'Bearer token'
+}
+data: {
+    userTo: userIdToAdd
+}
+response: {
+    "status": boolean,
+    "message": "Added" || "Removed"
+}
+****************************************************
+================= Wallet =====================
+********************************************************
+====== add Funds ============
+/api/wallet/fund
+Method: POST
+headers: {
+    Authorization: 'Bearer token'
+}
+data:{ id: userId, amount: int}
+response: {object}
+****************************************************
+================= WITHDRAWALS =====================
+********************************************************
+
+====== Withdrawal Request ============
+/api/withdraw
+Method: POST
+headers: {
+    Authorization: 'Bearer token'
+}
+data:{ user: int, amount: int}
+response: {object}
+
+============ Get user Withdrawal History ==============
+/api/my/withdrawals
+Method: GET
+headers: {
+    Authorization: 'Bearer token'
+}
+response: {array}
+
+****************************************************
+================= CHATS =====================
+********************************************************
+============= ======== Get Conversations =============
+/api/message
+Method: POST
+data :{
+    "message": "Jesus is lord.. accept christ",
+    "receiverId": 4,
+    "senderId": 3
+    "image": (optional) file
+}
+headers: {
+    Authorization: 'Bearer token'
+}
+response: {object}
+================ Get Chat Messages =============
+/api/conversations/{username}
+Method: GET
+headers: {
+    Authorization: 'Bearer token'
+}
+response {obj>arr}
+============== Get Conversation /Recent=========
+api/conversations
+Method: GET
+headers: {
+    Authorization: 'Bearer token'
+}
+response {array}

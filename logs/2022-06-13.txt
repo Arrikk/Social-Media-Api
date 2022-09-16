@@ -1,0 +1,14 @@
+[13-Jun-2022 16:20:50 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\laragon\www\leviPlatte\Router\Route.php(21): Core\Router->dispatch('favicon.ico')
+#1 C:\laragon\www\leviPlatte\index.php(48): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\laragon\www\leviPlatte\Core\Router.php' on line 167</p>
+[13-Jun-2022 16:32:02 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Exception'</p><p>Message: 'Page not Found'</p><p>Stack Trace: <pre>#0 C:\laragon\www\leviPlatte\Router\Route.php(21): Core\Router->dispatch('api/')
+#1 C:\laragon\www\leviPlatte\index.php(48): Router\Route::Route()
+#2 {main}</pre></p><p>Throw in 'C:\laragon\www\leviPlatte\Core\Router.php' on line 167</p>
+[13-Jun-2022 16:38:06 Africa/Lagos] <h1>Fatal Error</h1><p>Uncaught Exception: 'Error'</p><p>Message: 'Class 'ExceptionError' not found'</p><p>Stack Trace: <pre>#0 C:\laragon\www\leviPlatte\App\Models\User.php(284): Core\Error::errorHandler(8, 'Trying to get p...', 'C:\\laragon\\www\\...', 284, Array)
+#1 C:\laragon\www\leviPlatte\App\Controllers\User.php(52): App\Models\User::getUser(32)
+#2 [internal function]: App\Controllers\User->_get(Object(Core\Request))
+#3 C:\laragon\www\leviPlatte\Core\Controller.php(41): call_user_func_array(Array, Array)
+#4 C:\laragon\www\leviPlatte\Core\Router.php(152): Core\Controller->__call('_get', Array)
+#5 C:\laragon\www\leviPlatte\Router\Route.php(21): Core\Router->dispatch('api/user')
+#6 C:\laragon\www\leviPlatte\index.php(48): Router\Route::Route()
+#7 {main}</pre></p><p>Throw in 'C:\laragon\www\leviPlatte\Core\Error.php' on line 28</p>
